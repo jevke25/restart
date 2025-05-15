@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitPro Trener</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Overlay za login -->
+    <div id="loginOverlay" class="overlay">
+        <div class="login-container">
+            <span class="close-btn" onclick="closeLogin()">&times;</span>
+            <h2>Prijava</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Korisničko ime</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Lozinka</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn-login">PRIJAVI SE</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container" id="mainContainer">
+        <header>
+            <div class="logo-container">
+                <img src="logo.png" alt="FitPro Logo" class="logo">
+            </div>
+        </header>
+
+        <main id="content">
+            <!-- Početna stranica -->
+            <section id="home" class="page active">
+                <div class="hero-content">
+                    <h1 class="animated-heading"><span class="highlight">Tvoj cilj </span>Moj plan, zajedno do uspeha</h1>
+                    <p class="hero-text">Petar Nedeljkovic - tvoj sistem za formu bez izgovora.</p>
+                    <div class="button-group">
+                        <button class="btn-primary" onclick="openLogin()">Prijavi se</button>
+                        <button class="btn-secondary">Registruj se</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trener dashboard -->
+            <section id="trainerDashboard" class="page">
+                <div class="dashboard-header">
+                    <h2>Dobrodošli, Petar</h2>
+                    <div class="dashboard-nav">
+                        <button class="nav-btn active" onclick="showTrainerSection('clients')">Klijenti</button>
+                        <button class="nav-btn" onclick="showTrainerSection('exercises')">Vežbe</button>
+                        <button class="nav-btn" onclick="showTrainerSection('gym')">Teretana</button>
+                    </div>
+                </div>
+
+                <!-- Sekcija za klijente -->
+                <div id="trainerClients" class="trainer-section active">
+                    <div class="section-header">
+                        <h3>Moji klijenti</h3>
+                        <div class="filter-group">
+                            <select id="clientFilter">
+                                <option value="all">Svi klijenti</option>
+                                <option value="with_training">Ima trening</option>
+                                <option value="waiting_training">Čeka trening</option>
+                                <option value="waiting_payment">Čeka uplatu</option>
+                            </select>
+                            <button class="btn-small" onclick="filterClients()">Filtriraj</button>
+                        </div>
+                    </div>
+                    
+                    <div class="clients-grid">
+                        <!-- Primer klijenta 1 -->
+                        <div class="client-card" onclick="showClientDetails('client1')">
+                            <div class="client-avatar">M</div>
+                            <div class="client-info">
+                                <h4>Marko Marković</h4>
+                                <p class="client-status active">Aktivan</p>
+                                <p class="client-membership">Članarina ističe: 15.06.2023.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Primer klijenta 2 -->
+                        <div class="client-card" onclick="showClientDetails('client2')">
+                            <div class="client-avatar">A</div>
+                            <div class="client-info">
+                                <h4>Ana Anić</h4>
+                                <p class="client-status waiting-payment">Čeka uplatu</p>
+                                <p class="client-membership">Članarina istekla: 01.05.2023.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Primer klijenta 3 -->
+                        <div class="client-card" onclick="showClientDetails('client3')">
+                            <div class="client-avatar">J</div>
+                            <div class="client-info">
+                                <h4>Jovan Jovanović</h4>
+                                <p class="client-status waiting-training">Čeka trening</p>
+                                <p class="client-membership">Članarina ističe: 30.06.2023.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Detalji klijenta -->
+                    <div id="clientDetails" class="client-details" style="display: none;">
+                        <div class="details-header">
+                            <h3 id="detailClientName">Marko Marković</h3>
+                            <button class="btn-close" onclick="hideClientDetails()">&times;</button>
+                        </div>
+                        
+                        <div class="details-content">
+                            <div class="details-section">
+                                <h4>Osnovni podaci</h4>
+                                <p><strong>Email:</strong> marko.markovic@example.com</p>
+                                <p><strong>Telefon:</strong> +381 64 123 4567</p>
+                                <p><strong>Datum rođenja:</strong> 15.03.1990.</p>
+                                <p><strong>Visina:</strong> 185 cm</p>
+                                <p><strong>Težina:</strong> 82 kg</p>
+                            </div>
+                            
+                            <div class="details-section">
+                                <h4>Članarina</h4>
+                                <p><strong>Status:</strong> <span class="client-status active">Aktivan</span></p>
+                                <p><strong>Ističe:</strong> 15.06.2023.</p>
+                                <p><strong>Broj poseta:</strong> 24</p>
+                            </div>
+                            
+                            <div class="details-actions">
+                                <button class="btn-small btn-confirm" onclick="confirmPayment()">Potvrdi uplatu</button>
+                                <button class="btn-small" onclick="showAddTrainingForm()">Dodaj trening</button>
+                                <button class="btn-small" onclick="showNutritionForm()">Dodaj preporuku ishrane</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Forma za dodavanje treninga -->
+                        <div id="addTrainingForm" class="form-container" style="display: none;">
+                            <h4>Dodaj trening plan</h4>
+                            <form id="trainingForm">
+                                <div class="form-group">
+                                    <label for="trainingDay">Dan:</label>
+                                    <select id="trainingDay" required>
+                                        <option value="1">Dan 1</option>
+                                        <option value="2">Dan 2</option>
+                                        <option value="3">Dan 3</option>
+                                        <option value="4">Dan 4</option>
+                                        <option value="5">Dan 5</option>
+                                    </select>
+                                </div>
+                                
+                                <div id="exercisesContainer">
+                                    <div class="exercise-item">
+                                        <div class="form-group">
+                                            <label for="muscleGroup">Grupa mišića:</label>
+                                            <select class="muscle-group" required>
+                                                <option value="">Izaberi grupu</option>
+                                                <option value="grudi">Grudi</option>
+                                                <option value="ledja">Leđa</option>
+                                                <option value="noge">Noge</option>
+                                                <option value="rame">Rame</option>
+                                                <option value="biceps">Biceps</option>
+                                                <option value="triceps">Triceps</option>
+                                                <option value="trbuh">Trbuh</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="exerciseName">Vežba:</label>
+                                            <select class="exercise-name" required>
+                                                <option value="">Izaberi vežbu</option>
+                                                <!-- Ovo će se popuniti dinamički -->
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="sets">Serije:</label>
+                                                <input type="number" class="sets" min="1" max="10" value="3" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="reps">Ponavljanja:</label>
+                                                <input type="number" class="reps" min="1" max="50" value="12" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <button type="button" class="btn-small" onclick="addExercise()">Dodaj vežbu</button>
+                                <button type="submit" class="btn-small btn-confirm">Sačuvaj trening</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Forma za preporuku ishrane -->
+                        <div id="nutritionForm" class="form-container" style="display: none;">
+                            <h4>Dodaj preporuku ishrane</h4>
+                            <form id="nutritionRecommendationForm">
+                                <div class="form-group">
+                                    <label for="nutritionDay">Dan:</label>
+                                    <select id="nutritionDay" required>
+                                        <option value="1">Dan 1</option>
+                                        <option value="2">Dan 2</option>
+                                        <option value="3">Dan 3</option>
+                                        <option value="4">Dan 4</option>
+                                        <option value="5">Dan 5</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="calories">Kalorije (kcal):</label>
+                                    <input type="number" id="calories" required>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="protein">Proteini (g):</label>
+                                        <input type="number" id="protein" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="carbs">Ugljeni hidrati (g):</label>
+                                        <input type="number" id="carbs" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="fats">Masti (g):</label>
+                                        <input type="number" id="fats" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="nutritionNotes">Dodatne napomene:</label>
+                                    <textarea id="nutritionNotes" rows="3"></textarea>
+                                </div>
+                                
+                                <button type="submit" class="btn-small btn-confirm">Sačuvaj preporuku</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sekcija za vežbe -->
+                <div id="trainerExercises" class="trainer-section">
+                    <div class="section-header">
+                        <h3>Baza vežbi</h3>
+                        <div class="action-buttons">
+                            <button class="btn-small" onclick="showAddExerciseForm()">Dodaj novu vežbu</button>
+                            <div class="search-box">
+                                <input type="text" placeholder="Pretraži vežbe...">
+                                <button class="btn-search"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="exercises-grid">
+                        <!-- Primer vežbe 1 -->
+                        <div class="exercise-card">
+                            <div class="exercise-header">
+                                <h4>Čučnjevi</h4>
+                                <span class="muscle-group-tag">Noge</span>
+                            </div>
+                            <div class="exercise-description">
+                                <p>Osnovna vežba za kvadricepse, zadnju ložu i gluteus. Izvoditi sa pravim položajem kičme.</p>
+                            </div>
+                            <div class="exercise-actions">
+                                <button class="btn-small">Izmeni</button>
+                                <button class="btn-small btn-danger">Obriši</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Primer vežbe 2 -->
+                        <div class="exercise-card">
+                            <div class="exercise-header">
+                                <h4>Bench press</h4>
+                                <span class="muscle-group-tag">Grudi</span>
+                            </div>
+                            <div class="exercise-description">
+                                <p>Klasična vežba za razvijanje prsnih mišića. Paziti na pravilno spuštanje šipke.</p>
+                            </div>
+                            <div class="exercise-actions">
+                                <button class="btn-small">Izmeni</button>
+                                <button class="btn-small btn-danger">Obriši</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Primer vežbe 3 -->
+                        <div class="exercise-card">
+                            <div class="exercise-header">
+                                <h4>Veslanje u prednjemu</h4>
+                                <span class="muscle-group-tag">Leđa</span>
+                            </div>
+                            <div class="exercise-description">
+                                <p>Odlična vežba za široke leđne mišiće. Držati leđa ravno tokom celog pokreta.</p>
+                            </div>
+                            <div class="exercise-actions">
+                                <button class="btn-small">Izmeni</button>
+                                <button class="btn-small btn-danger">Obriši</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Forma za dodavanje vežbe -->
+                    <div id="addExerciseForm" class="form-container" style="display: none;">
+                        <h4>Dodaj novu vežbu</h4>
+                        <form id="newExerciseForm">
+                            <div class="form-group">
+                                <label for="exerciseName">Naziv vežbe:</label>
+                                <input type="text" id="exerciseName" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="exerciseMuscleGroup">Grupa mišića:</label>
+                                <select id="exerciseMuscleGroup" required>
+                                    <option value="">Izaberi grupu</option>
+                                    <option value="grudi">Grudi</option>
+                                    <option value="ledja">Leđa</option>
+                                    <option value="noge">Noge</option>
+                                    <option value="rame">Rame</option>
+                                    <option value="biceps">Biceps</option>
+                                    <option value="triceps">Triceps</option>
+                                    <option value="trbuh">Trbuh</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="exerciseDescription">Opis vežbe:</label>
+                                <textarea id="exerciseDescription" rows="3" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="exerciseVideo">Link za video (opciono):</label>
+                                <input type="url" id="exerciseVideo">
+                            </div>
+                            
+                            <button type="submit" class="btn-small btn-confirm">Sačuvaj vežbu</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Sekcija za teretanu -->
+                <div id="trainerGym" class="trainer-section">
+                    <div class="section-header">
+                        <h3>Upravljanje teretanom</h3>
+                        <div class="filter-group">
+                            <select id="gymFilter">
+                                <option value="all">Svi vežbači</option>
+                                <option value="active">Aktivni vežbači</option>
+                                <option value="expired">Istekla članarina</option>
+                                <option value="expiring_today">Danas ističe</option>
+                            </select>
+                            <button class="btn-small" onclick="filterGymMembers()">Filtriraj</button>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>Ukupno članova</h4>
+                            <p class="stat-value">124</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Aktivnih</h4>
+                            <p class="stat-value">98</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Isteklo</h4>
+                            <p class="stat-value">26</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Danas ističe</h4>
+                            <p class="stat-value">3</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gym-members-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ime i prezime</th>
+                                    <th>Članarina ističe</th>
+                                    <th>Status</th>
+                                    <th>Poseta u mesecu</th>
+                                    <th>Akcije</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Marko Marković</td>
+                                    <td>15.06.2023.</td>
+                                    <td><span class="status-badge active">Aktivan</span></td>
+                                    <td>8</td>
+                                    <td><button class="btn-small">Detalji</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Ana Anić</td>
+                                    <td>01.05.2023.</td>
+                                    <td><span class="status-badge expired">Isteklo</span></td>
+                                    <td>0</td>
+                                    <td><button class="btn-small">Detalji</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Jovan Jovanović</td>
+                                    <td>30.06.2023.</td>
+                                    <td><span class="status-badge active">Aktivan</span></td>
+                                    <td>5</td>
+                                    <td><button class="btn-small">Detalji</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Milica Petrović</td>
+                                    <td>05.06.2023.</td>
+                                    <td><span class="status-badge expiring">Ističe uskoro</span></td>
+                                    <td>6</td>
+                                    <td><button class="btn-small">Detalji</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Klijent dashboard -->
+            <section id="clientDashboard" class="page">
+                <div class="dashboard-header">
+                    <h2>Dobrodošli, Klijent</h2>
+                    <div class="dashboard-nav">
+                        <button class="nav-btn active" onclick="showClientSection('training')">Trening</button>
+                        <button class="nav-btn" onclick="showClientSection('nutrition')">Ishrana</button>
+                        <button class="nav-btn" onclick="showClientSection('measurements')">Obimi</button>
+                        <button class="nav-btn" onclick="showClientSection('stats')">Statistika</button>
+                        <button class="nav-btn" onclick="showClientSection('gym')">Teretana</button>
+                    </div>
+                </div>
+                
+                <!-- Sekcija za trening -->
+                <div id="clientTraining" class="client-section active">
+                    <div class="section-header">
+                        <h3>Moj trening plan</h3>
+                        <div class="day-selector">
+                            <button class="day-btn active" onclick="selectTrainingDay(1)">Dan 1</button>
+                            <button class="day-btn" onclick="selectTrainingDay(2)">Dan 2</button>
+                            <button class="day-btn" onclick="selectTrainingDay(3)">Dan 3</button>
+                            <button class="day-btn" onclick="selectTrainingDay(4)">Dan 4</button>
+                            <button class="day-btn" onclick="selectTrainingDay(5)">Dan 5</button>
+                        </div>
+                    </div>
+                    
+                    <div class="training-day">
+                        <h4>Dan 1 - Grudi i triceps</h4>
+                        <div class="exercise-list">
+                            <div class="exercise-item">
+                                <div class="exercise-header">
+                                    <h5>Bench press</h5>
+                                    <span class="muscle-group-tag">Grudi</span>
+                                </div>
+                                <div class="exercise-details">
+                                    <p>4 serije x 12 ponavljanja</p>
+                                    <button class="btn-small btn-info" onclick="showExerciseInfo('bench-press')">Info</button>
+                                </div>
+                            </div>
+                            
+                            <div class="exercise-item">
+                                <div class="exercise-header">
+                                    <h5>Kosi bench press</h5>
+                                    <span class="muscle-group-tag">Grudi</span>
+                                </div>
+                                <div class="exercise-details">
+                                    <p>3 serije x 10 ponavljanja</p>
+                                    <button class="btn-small btn-info" onclick="showExerciseInfo('incline-bench')">Info</button>
+                                </div>
+                            </div>
+                            
+                            <div class="exercise-item">
+                                <div class="exercise-header">
+                                    <h5>Sklekovi</h5>
+                                    <span class="muscle-group-tag">Grudi</span>
+                                </div>
+                                <div class="exercise-details">
+                                    <p>3 serije do otkaza</p>
+                                    <button class="btn-small btn-info" onclick="showExerciseInfo('pushups')">Info</button>
+                                </div>
+                            </div>
+                            
+                            <div class="exercise-item">
+                                <div class="exercise-header">
+                                    <h5>Triceps ekstenzija</h5>
+                                    <span class="muscle-group-tag">Triceps</span>
+                                </div>
+                                <div class="exercise-details">
+                                    <p>3 serije x 15 ponavljanja</p>
+                                    <button class="btn-small btn-info" onclick="showExerciseInfo('triceps-extension')">Info</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Modal za informacije o vežbi -->
+                    <div id="exerciseInfoModal" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close-btn" onclick="closeExerciseInfo()">&times;</span>
+                            <h4 id="modalExerciseTitle">Bench press</h4>
+                            <div class="exercise-video">
+                                <!-- Ovo bi bio embedovan video -->
+                                <div class="video-placeholder">
+                                    <i class="fas fa-video"></i>
+                                    <p>Video demonstracija</p>
+                                </div>
+                            </div>
+                            <div class="exercise-description">
+                                <h5>Opis vežbe:</h5>
+                                <p id="modalExerciseDescription">Klasična vežba za razvijanje prsnih mišića. Leći na klupu sa stopalima čvrsto na podu. Držati šipku sa širinom ramena. Spustiti šipku do donjeg dela grudi, zadržati na sekundu, zatim podići nazad u početni položaj.</p>
+                            </div>
+                            <div class="exercise-tips">
+                                <h5>Saveti:</h5>
+                                <ul>
+                                    <li>Držati laktove blizu tela</li>
+                                    <li>Ne odskakivati šipku od grudi</li>
+                                    <li>Zadržati kičmu u neutralnom položaju</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sekcija za ishranu -->
+                <div id="clientNutrition" class="client-section">
+                    <div class="section-header">
+                        <h3>Moja ishrana</h3>
+                        <div class="day-selector">
+                            <button class="day-btn active" onclick="selectNutritionDay(1)">Dan 1</button>
+                            <button class="day-btn" onclick="selectNutritionDay(2)">Dan 2</button>
+                            <button class="day-btn" onclick="selectNutritionDay(3)">Dan 3</button>
+                            <button class="day-btn" onclick="selectNutritionDay(4)">Dan 4</button>
+                            <button class="day-btn" onclick="selectNutritionDay(5)">Dan 5</button>
+                        </div>
+                    </div>
+                    
+                    <div class="nutrition-container">
+                        <div class="nutrition-plan">
+                            <h4>Preporučeni unos za Dan 1</h4>
+                            <div class="nutrition-stats">
+                                <div class="stat-item">
+                                    <p class="stat-label">Kalorije</p>
+                                    <p class="stat-value">2500 <span>kcal</span></p>
+                                </div>
+                                <div class="stat-item">
+                                    <p class="stat-label">Proteini</p>
+                                    <p class="stat-value">180 <span>g</span></p>
+                                </div>
+                                <div class="stat-item">
+                                    <p class="stat-label">Ugljeni hidrati</p>
+                                    <p class="stat-value">250 <span>g</span></p>
+                                </div>
+                                <div class="stat-item">
+                                    <p class="stat-label">Masti</p>
+                                    <p class="stat-value">70 <span>g</span></p>
+                                </div>
+                            </div>
+                            
+                            <div class="nutrition-notes">
+                                <h5>Napomene:</h5>
+                                <p>Povećati unos proteina nakon treninga. Izbegavati jednostavne šećere pre treninga.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="nutrition-tracker">
+                            <h4>Unos hrane</h4>
+                            <form id="foodEntryForm">
+                                <div class="form-group">
+                                    <label for="foodItem">Hrana:</label>
+                                    <select id="foodItem" required>
+                                        <option value="">Izaberi hranu</option>
+                                        <option value="piletina">Piletina (100g)</option>
+                                        <option value="pirinač">Pirinač beli (100g)</option>
+                                        <option value="brokoli">Brokoli (100g)</option>
+                                        <option value="jaje">Jaje (1 kom)</option>
+                                        <option value="banana">Banana (1 srednja)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="foodAmount">Količina (g/ml/kom):</label>
+                                    <input type="number" id="foodAmount" min="1" value="100" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="mealTime">Vreme obroka:</label>
+                                    <select id="mealTime" required>
+                                        <option value="breakfast">Doručak</option>
+                                        <option value="snack">Užina</option>
+                                        <option value="lunch">Ručak</option>
+                                        <option value="post_workout">Posle treninga</option>
+                                        <option value="dinner">Večera</option>
+                                    </select>
+                                </div>
+                                
+                                <button type="submit" class="btn-small btn-confirm">Dodaj hranu</button>
+                            </form>
+                            
+                            <div class="nutrition-summary">
+                                <h5>Dnevni unos:</h5>
+                                <div class="summary-stats">
+                                    <div class="stat-item">
+                                        <p class="stat-label">Kalorije</p>
+                                        <p class="stat-value">1850 <span>kcal</span></p>
+                                        <p class="stat-percentage">74%</p>
+                                    </div>
+                                    <div class="stat-item">
+                                        <p class="stat-label">Proteini</p>
+                                        <p class="stat-value">145 <span>g</span></p>
+                                        <p class="stat-percentage">81%</p>
+                                    </div>
+                                    <div class="stat-item">
+                                        <p class="stat-label">Uglj. hidrati</p>
+                                        <p class="stat-value">210 <span>g</span></p>
+                                        <p class="stat-percentage">84%</p>
+                                    </div>
+                                    <div class="stat-item">
+                                        <p class="stat-label">Masti</p>
+                                        <p class="stat-value">55 <span>g</span></p>
+                                        <p class="stat-percentage">79%</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="progress-container">
+                                    <div class="progress-bar" style="width: 74%; background-color: #36e199;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="food-log">
+                                <h5>Dnevnik hrane:</h5>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Hrana</th>
+                                            <th>Količina</th>
+                                            <th>Vreme</th>
+                                            <th>Kalorije</th>
+                                            <th>Akcije</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Piletina</td>
+                                            <td>150g</td>
+                                            <td>Ručak</td>
+                                            <td>330 kcal</td>
+                                            <td><button class="btn-small btn-danger"><i class="fas fa-trash"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pirinač beli</td>
+                                            <td>100g</td>
+                                            <td>Ručak</td>
+                                            <td>130 kcal</td>
+                                            <td><button class="btn-small btn-danger"><i class="fas fa-trash"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Brokoli</td>
+                                            <td>100g</td>
+                                            <td>Ručak</td>
+                                            <td>55 kcal</td>
+                                            <td><button class="btn-small btn-danger"><i class="fas fa-trash"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Banana</td>
+                                            <td>1 kom</td>
+                                            <td>Posle treninga</td>
+                                            <td>105 kcal</td>
+                                            <td><button class="btn-small btn-danger"><i class="fas fa-trash"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sekcija za obime -->
+                <div id="clientMeasurements" class="client-section">
+                    <div class="section-header">
+                        <h3>Moji obimi</h3>
+                        <button class="btn-small" onclick="showAddMeasurementForm()">Dodaj nove obime</button>
+                    </div>
+                    
+                    <div class="measurements-container">
+                        <div class="measurement-form" style="display: none;" id="addMeasurementForm">
+                            <h4>Unesi nove obime</h4>
+                            <form id="measurementForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="measurementDate">Datum:</label>
+                                        <input type="date" id="measurementDate" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="neck">Vrat (cm):</label>
+                                        <input type="number" id="neck" step="0.1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="chest">Grudi (cm):</label>
+                                        <input type="number" id="chest" step="0.1">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="waist">Struk (cm):</label>
+                                        <input type="number" id="waist" step="0.1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="hips">Kukovi (cm):</label>
+                                        <input type="number" id="hips" step="0.1">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="bicepLeft">Biceps levo (cm):</label>
+                                        <input type="number" id="bicepLeft" step="0.1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bicepRight">Biceps desno (cm):</label>
+                                        <input type="number" id="bicepRight" step="0.1">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="thighLeft">Butina levo (cm):</label>
+                                        <input type="number" id="thighLeft" step="0.1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="thighRight">Butina desno (cm):</label>
+                                        <input type="number" id="thighRight" step="0.1">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="calfLeft">List levo (cm):</label>
+                                        <input type="number" id="calfLeft" step="0.1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="calfRight">List desno (cm):</label>
+                                        <input type="number" id="calfRight" step="0.1">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="weight">Težina (kg):</label>
+                                        <input type="number" id="weight" step="0.1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bodyFat">Procenat masti (%):</label>
+                                        <input type="number" id="bodyFat" step="0.1">
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn-small btn-confirm">Sačuvaj obime</button>
+                            </form>
+                        </div>
+                        
+                        <div class="measurement-history">
+                            <h4>Istorijat merenja</h4>
+                            <div class="measurement-chart">
+                                <canvas id="measurementsChart"></canvas>
+                            </div>
+                            
+                            <div class="measurement-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Datum</th>
+                                            <th>Težina</th>
+                                            <th>Grudi</th>
+                                            <th>Struk</th>
+                                            <th>Biceps</th>
+                                            <th>Butina</th>
+                                            <th>% masti</th>
+                                            <th>Akcije</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>01.05.2023.</td>
+                                            <td>82.5 kg</td>
+                                            <td>102 cm</td>
+                                            <td>86 cm</td>
+                                            <td>36 cm</td>
+                                            <td>58 cm</td>
+                                            <td>18.5%</td>
+                                            <td><button class="btn-small btn-danger"><i class="fas fa-trash"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>15.04.2023.</td>
+                                            <td>83.2 kg</td>
+                                            <td>101 cm</td>
+                                            <td>87 cm</td>
+                                            <td>35.5 cm</td>
+                                            <td>57 cm</td>
+                                            <td>19%</td>
+                                            <td><button class="btn-small btn-danger"><i class="fas fa-trash"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>01.04.2023.</td>
+                                            <td>84 kg</td>
+                                            <td>100 cm</td>
+                                            <td>88 cm</td>
+                                            <td>35 cm</td>
+                                            <td>56 cm</td>
+                                            <td>19.5%</td>
+                                            <td><button class="btn-small btn-danger"><i class="fas fa-trash"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sekcija za statistiku -->
+                <div id="clientStats" class="client-section">
+                    <div class="section-header">
+                        <h3>Moja statistika</h3>
+                        <div class="time-filter">
+                            <button class="btn-small active">Poslednji mesec</button>
+                            <button class="btn-small">3 meseca</button>
+                            <button class="btn-small">6 meseci</button>
+                            <button class="btn-small">Godina dana</button>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <h4>Promena težine</h4>
+                            <div class="stat-chart">
+                                <canvas id="weightChart"></canvas>
+                            </div>
+                            <div class="stat-summary">
+                                <p>Početna težina: <strong>84 kg</strong></p>
+                                <p>Trenutna težina: <strong>82.5 kg</strong></p>
+                                <p>Promena: <strong class="positive">-1.5 kg</strong></p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <h4>Promena obima struka</h4>
+                            <div class="stat-chart">
+                                <canvas id="waistChart"></canvas>
+                            </div>
+                            <div class="stat-summary">
+                                <p>Početni obim: <strong>88 cm</strong></p>
+                                <p>Trenutni obim: <strong>86 cm</strong></p>
+                                <p>Promena: <strong class="positive">-2 cm</strong></p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <h4>Unos nutrijenata</h4>
+                            <div class="stat-chart">
+                                <canvas id="nutritionChart"></canvas>
+                            </div>
+                            <div class="stat-summary">
+                                <p>Proteini: <strong>145g/dan</strong> (81%)</p>
+                                <p>Uglj. hidrati: <strong>210g/dan</strong> (84%)</p>
+                                <p>Masti: <strong>55g/dan</strong> (79%)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <h4>Posete teretani</h4>
+                            <div class="stat-chart">
+                                <canvas id="gymVisitsChart"></canvas>
+                            </div>
+                            <div class="stat-summary">
+                                <p>Ukupno poseta: <strong>24</strong></p>
+                                <p>Prosečno nedeljno: <strong>3.4</strong></p>
+                                <p>Zadnja poseta: <strong>02.05.2023.</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sekcija za teretanu -->
+                <div id="clientGym" class="client-section">
+                    <div class="section-header">
+                        <h3>Moja teretana</h3>
+                    </div>
+                    
+                    <div class="gym-container">
+                        <div class="gym-card">
+                            <div class="qr-code">
+                                <div class="qr-placeholder">
+                                    <i class="fas fa-qrcode"></i>
+                                    <p>Vaš QR kod za ulazak</p>
+                                </div>
+                                <button class="btn-small">Preuzmi QR kod</button>
+                            </div>
+                            
+                            <div class="gym-info">
+                                <h4>Članarina</h4>
+                                <div class="info-item">
+                                    <p class="info-label">Status:</p>
+                                    <p class="info-value active">Aktivan</p>
+                                </div>
+                                <div class="info-item">
+                                    <p class="info-label">Ističe:</p>
+                                    <p class="info-value">15.06.2023.</p>
+                                </div>
+                                <div class="info-item">
+                                    <p class="info-label">Preostalo dana:</p>
+                                    <p class="info-value">41</p>
+                                </div>
+                                <div class="info-item">
+                                    <p class="info-label">Poseta u mesecu:</p>
+                                    <p class="info-value">8</p>
+                                </div>
+                                
+                                <button class="btn-small btn-renew">Produži članarinu</button>
+                            </div>
+                        </div>
+                        
+                        <div class="gym-stats">
+                            <h4>Statistika poseta</h4>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <p class="stat-label">Ukupno poseta</p>
+                                    <p class="stat-value">24</p>
+                                </div>
+                                <div class="stat-item">
+                                    <p class="stat-label">Prosečno nedeljno</p>
+                                    <p class="stat-value">3.4</p>
+                                </div>
+                                <div class="stat-item">
+                                    <p class="stat-label">Najčešći dan</p>
+                                    <p class="stat-value">Sreda</p>
+                                </div>
+                                <div class="stat-item">
+                                    <p class="stat-label">Najčešće vreme</p>
+                                    <p class="stat-value">18:00-20:00</p>
+                                </div>
+                            </div>
+                            
+                            <div class="visit-history">
+                                <h5>Istorijat poseta:</h5>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Datum</th>
+                                            <th>Vreme ulaska</th>
+                                            <th>Vreme izlaska</th>
+                                            <th>Trajanje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>02.05.2023.</td>
+                                            <td>18:15</td>
+                                            <td>19:45</td>
+                                            <td>1h 30m</td>
+                                        </tr>
+                                        <tr>
+                                            <td>30.04.2023.</td>
+                                            <td>11:00</td>
+                                            <td>12:30</td>
+                                            <td>1h 30m</td>
+                                        </tr>
+                                        <tr>
+                                            <td>28.04.2023.</td>
+                                            <td>18:30</td>
+                                            <td>20:00</td>
+                                            <td>1h 30m</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

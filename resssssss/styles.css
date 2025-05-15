@@ -1,0 +1,1303 @@
+/* Global Styles */
+:root {
+    --primary-color: #36e199;
+    --primary-dark: #2bc487;
+    --black: #000000;
+    --white: #ffffff;
+    --gray-dark: #333333;
+    --gray-medium: #666666;
+    --gray-light: #eeeeee;
+    --overlay: rgba(0, 0, 0, 0.7);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Roboto', 'Lato', sans-serif;
+    color: var(--white);
+    background: url('bckg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay);
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styles */
+header {
+    padding: 20px 0;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+}
+
+/* Main Content Styles */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.page {
+    display: none;
+    flex: 1;
+    padding: 20px 0;
+}
+
+.page.active {
+    display: block;
+}
+
+/* Home Page Styles */
+#home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 70vh;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.animated-heading {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    animation: fadeInDown 1s ease;
+}
+
+.highlight {
+    color: var(--primary-color);
+}
+
+.hero-text {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    animation: fadeIn 1.5s ease;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    animation: fadeInUp 1s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--black);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary {
+    background-color: rgba(54, 225, 153, 0.12);
+    color: var(--white);
+    border: 1px solid var(--primary-color);
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(54, 225, 153, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Login Overlay Styles */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    background-color: var(--gray-dark);
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--gray-medium);
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: var(--white);
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 5px;
+    border: 1px solid var(--gray-medium);
+    background-color: var(--gray-dark);
+    color: var(--white);
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: var(--black);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-login:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Dashboard Styles */
+.dashboard-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.dashboard-header h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.dashboard-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.nav-btn {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-btn.active {
+    background-color: var(--primary-color);
+    color: var(--black);
+}
+
+.trainer-section {
+    display: none;
+}
+
+.trainer-section.active {
+    display: block;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.section-header h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.filter-group {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-group select {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid var(--gray-medium);
+    background-color: var(--gray-dark);
+    color: var(--white);
+    font-size: 0.9rem;
+}
+
+.btn-small {
+    padding: 8px 15px;
+    background-color: var(--primary-color);
+    color: var(--black);
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-small:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.btn-confirm {
+    background-color: var(--primary-color);
+    color: var(--black);
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: var(--white);
+}
+
+.btn-info {
+    background-color: #3498db;
+    color: var(--white);
+}
+
+.btn-renew {
+    background-color: #f39c12;
+    color: var(--black);
+}
+
+.btn-search {
+    padding: 8px 15px;
+    background-color: var(--gray-medium);
+    color: var(--white);
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.search-box {
+    display: flex;
+}
+
+.search-box input {
+    padding: 8px 15px;
+    border: 1px solid var(--gray-medium);
+    border-radius: 5px 0 0 5px;
+    background-color: var(--gray-dark);
+    color: var(--white);
+    font-size: 0.9rem;
+    width: 200px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* Clients Grid */
+.clients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.client-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.client-card:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.client-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: var(--black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.client-info h4 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.client-status {
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.client-status.active {
+    color: var(--primary-color);
+}
+
+.client-status.waiting-payment {
+    color: #e74c3c;
+}
+
+.client-status.waiting-training {
+    color: #f39c12;
+}
+
+.client-membership {
+    font-size: 0.8rem;
+    color: var(--gray-light);
+}
+
+/* Client Details */
+.client-details {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--gray-medium);
+    padding-bottom: 10px;
+}
+
+.details-header h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.details-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.details-section {
+    margin-bottom: 15px;
+}
+
+.details-section h4 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.details-section p {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.details-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    grid-column: 1 / -1;
+}
+
+/* Forms */
+.form-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.form-container h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    flex: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--gray-medium);
+    background-color: var(--gray-dark);
+    color: var(--white);
+    font-size: 0.9rem;
+}
+
+.form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Exercises */
+.exercises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.exercise-card {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.exercise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.exercise-header h4 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.muscle-group-tag {
+    background-color: var(--primary-color);
+    color: var(--black);
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.exercise-description p {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    color: var(--gray-light);
+}
+
+.exercise-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Gym Management */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.stat-card h4 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+.gym-members-table {
+    overflow-x: auto;
+}
+
+.gym-members-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.gym-members-table th,
+.gym-members-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-medium);
+}
+
+.gym-members-table th {
+    background-color: rgba(54, 225, 153, 0.2);
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.gym-members-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.status-badge {
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.status-badge.active {
+    background-color: rgba(54, 225, 153, 0.2);
+    color: var(--primary-color);
+}
+
+.status-badge.expired {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+}
+
+.status-badge.expiring {
+    background-color: rgba(243, 156, 18, 0.2);
+    color: #f39c12;
+}
+
+/* Client Sections */
+.client-section {
+    display: none;
+}
+
+.client-section.active {
+    display: block;
+}
+
+.day-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.day-btn {
+    padding: 8px 15px;
+    background-color: transparent;
+    color: var(--white);
+    border: 1px solid var(--gray-medium);
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.day-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.day-btn.active {
+    background-color: var(--primary-color);
+    color: var(--black);
+    border-color: var(--primary-color);
+}
+
+.training-day {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.training-day h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.exercise-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.exercise-header h5 {
+    color: var(--white);
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.exercise-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.exercise-details p {
+    font-size: 0.9rem;
+    color: var(--gray-light);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--gray-dark);
+    border-radius: 10px;
+    padding: 30px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-content h4 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.exercise-video {
+    margin-bottom: 20px;
+}
+
+.video-placeholder {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 40px;
+    text-align: center;
+    color: var(--gray-light);
+}
+
+.video-placeholder i {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.exercise-description h5,
+.exercise-tips h5 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.exercise-description p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.exercise-tips ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.exercise-tips li {
+    margin-bottom: 8px;
+}
+
+/* Nutrition Section */
+.nutrition-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.nutrition-plan {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.nutrition-plan h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.nutrition-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--gray-light);
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+.stat-value span {
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: var(--gray-light);
+}
+
+.nutrition-notes h5 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.nutrition-notes p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--gray-light);
+}
+
+.nutrition-tracker {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.nutrition-tracker h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+#foodEntryForm {
+    margin-bottom: 20px;
+}
+
+.food-log {
+    margin-top: 20px;
+}
+
+.food-log h5 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.food-log table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.food-log th,
+.food-log td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-medium);
+    font-size: 0.8rem;
+}
+
+.food-log th {
+    background-color: rgba(54, 225, 153, 0.2);
+    color: var(--primary-color);
+}
+
+.food-log tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nutrition-summary {
+    margin-top: 20px;
+}
+
+.nutrition-summary h5 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.summary-stats .stat-item {
+    padding: 5px;
+}
+
+.summary-stats .stat-label {
+    font-size: 0.7rem;
+}
+
+.summary-stats .stat-value {
+    font-size: 1rem;
+}
+
+.summary-stats .stat-percentage {
+    font-size: 0.7rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.progress-container {
+    width: 100%;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+}
+
+/* Measurements Section */
+.measurements-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.measurement-form {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.measurement-form h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.measurement-history {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.measurement-history h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.measurement-chart {
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+.measurement-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.measurement-table th,
+.measurement-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-medium);
+    font-size: 0.8rem;
+}
+
+.measurement-table th {
+    background-color: rgba(54, 225, 153, 0.2);
+    color: var(--primary-color);
+}
+
+.measurement-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Stats Section */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.stats-container .stat-card {
+    height: 100%;
+}
+
+.stat-chart {
+    height: 150px;
+    margin-bottom: 15px;
+}
+
+.stat-summary p {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.stat-summary strong {
+    font-weight: 700;
+}
+
+.stat-summary .positive {
+    color: var(--primary-color);
+}
+
+/* Gym Section */
+.gym-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.gym-card {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qr-code {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.qr-placeholder {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 30px;
+    margin-bottom: 15px;
+}
+
+.qr-placeholder i {
+    font-size: 5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.qr-placeholder p {
+    font-size: 0.9rem;
+    color: var(--gray-light);
+}
+
+.gym-info {
+    width: 100%;
+}
+
+.gym-info h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-medium);
+}
+
+.info-label {
+    font-size: 0.9rem;
+    color: var(--gray-light);
+}
+
+.info-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.info-value.active {
+    color: var(--primary-color);
+}
+
+.gym-stats {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.gym-stats h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.visit-history {
+    margin-top: 20px;
+}
+
+.visit-history h5 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.visit-history table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.visit-history th,
+.visit-history td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-medium);
+    font-size: 0.8rem;
+}
+
+.visit-history th {
+    background-color: rgba(54, 225, 153, 0.2);
+    color: var(--primary-color);
+}
+
+.visit-history tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .button-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+    
+    .dashboard-nav {
+        flex-wrap: wrap;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .details-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .nutrition-container,
+    .measurements-container,
+    .gym-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .clients-grid,
+    .exercises-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .day-selector {
+        flex-wrap: wrap;
+    }
+    
+    .day-btn {
+        flex: 1;
+        min-width: 60px;
+    }
+}
